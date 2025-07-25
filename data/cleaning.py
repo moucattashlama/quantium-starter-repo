@@ -9,19 +9,22 @@ print("Found files:", file_paths)
 dfs = [pd.read_csv(file) for file in file_paths]
 merged_df = pd.concat(dfs, ignore_index=True)
 
-# Step 3: Clean and convert 'price' column
+# ✅ Step 3: Filter only pink morsel sales
+merged_df = merged_df[merged_df['product'] == 'pink morsel'].copy()
+
+# Step 4: Clean and convert 'price' column
 merged_df['price'] = merged_df['price'].replace(r'[\$,]', '', regex=True).astype(float)
 
-# Step 4: Compute 'Sales' = price * quantity
+# Step 5: Compute 'Sales' = price * quantity
 merged_df['Sales'] = merged_df['price'] * merged_df['quantity']
 
-# Step 5: Convert 'date' column to datetime
+# Step 6: Convert 'date' column to datetime
 merged_df['Date'] = pd.to_datetime(merged_df['date'])
 
-# Step 6: Select only required columns
+# Step 7: Select only required columns
 final_df = merged_df[['Sales', 'Date', 'region']].rename(columns={'region': 'Region'})
 
-# Step 7: Save to CSV
-final_df.to_csv("cleaned_data.csv", index=False)
+# Step 8: Save to CSV
+final_df.to_csv("formatted_data.csv", index=False)
 
-print("✅ Cleaned file saved with columns: Sales, Date, Region")
+print("✅ Filtered and cleaned file saved as 'formatted_data.csv' with: Sales, Date, Region")
