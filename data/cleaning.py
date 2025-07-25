@@ -24,7 +24,7 @@ merged_df['Date'] = pd.to_datetime(merged_df['date'])
 # Step 7: Select only required columns
 final_df = merged_df[['Sales', 'Date', 'region']].rename(columns={'region': 'Region'})
 
-# Step 8: Save to CSV
-final_df.to_csv("formatted_data.csv", index=False)
+# ✅ Step 8: Overwrite existing formatted_data.csv
+final_df.to_csv("cleaned_data.csv", index=False)
 
-print("✅ Filtered and cleaned file saved as 'formatted_data.csv' with: Sales, Date, Region")
+print("✅ cleaned_data.csv updated with only pink morsel sales.")
